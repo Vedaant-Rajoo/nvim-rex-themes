@@ -91,6 +91,7 @@ function M.groups(p)
     ErrorMsg = { fg = c.red },
     WarningMsg = { fg = c.yellow },
     MoreMsg = { fg = c.green },
+    OkMsg = { fg = c.green },
     ModeMsg = { fg = c.fg, bold = true },
     Question = { fg = c.blue },
 
@@ -175,6 +176,7 @@ function M.groups(p)
     DiagnosticUnderlineWarn = { undercurl = true, sp = c.yellow },
     DiagnosticUnderlineInfo = { undercurl = true, sp = c.blue },
     DiagnosticUnderlineHint = { undercurl = true, sp = c.cyan },
+    DiagnosticUnderlineOk = { undercurl = true, sp = c.green },
     DiagnosticUnnecessary = { fg = c.muted },
     LspReferenceText = { bg = c.highlight },
     LspReferenceRead = { link = "LspReferenceText" },
