@@ -49,13 +49,13 @@ local fallback
 
 local function refresh(force)
   local id = M.current_id()
-  if not force and id == M.active and (id == nil or vim.g.colors_name == "rex") then
+  if not force and id == M.active then
     return
   end
+  M.active = id
   if id then
     vim.cmd.colorscheme("rex")
   else
-    M.active = nil
     if fallback then
       fallback()
     end
