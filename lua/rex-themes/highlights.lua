@@ -14,6 +14,12 @@ local function blend(top, base, amount)
   return string.format("#%02x%02x%02x", mix(r1, r2), mix(g1, g2), mix(b1, b2))
 end
 
+-- Rough brightness, only good for telling which of two colors is darker.
+local function luma(hex)
+  local r, g, b = rgb(hex)
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b
+end
+
 function M.groups(p)
   local a = p.ansi
   local c = {
@@ -35,6 +41,8 @@ function M.groups(p)
   c.overlay = blend(c.fg, c.bg, 0.10)
   c.highlight = blend(c.fg, c.bg, 0.18)
   c.border = blend(c.fg, c.bg, 0.25)
+  -- On a light background the bright variant is usually the lighter one, so it reads worse.
+  c.special = p.appearance == "light" and luma(c.cyan) < luma(c.bright_cyan) and c.cyan or c.bright_cyan
 
   local function tint(color, amount)
     return blend(color, c.bg, amount or 0.15)
@@ -119,7 +127,7 @@ function M.groups(p)
     StorageClass = { link = "Keyword" },
     Structure = { link = "Type" },
     Typedef = { link = "Type" },
-    Special = { fg = c.bright_cyan },
+    Special = { fg = c.special },
     SpecialChar = { link = "Special" },
     Tag = { fg = c.red },
     Delimiter = { fg = c.subtle },
