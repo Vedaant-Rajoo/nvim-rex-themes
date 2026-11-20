@@ -22,8 +22,11 @@ function M.current_id()
   end
 end
 
+-- The ID refresh() just read, so load() does not run `defaults read` again.
+local pending
+
 function M.load()
-  local id = M.current_id()
+  local id = pending or M.current_id()
   if not id then
     return false
   end
@@ -55,7 +58,12 @@ local function refresh(force)
   end
   M.active = id
   if id then
-    vim.cmd.colorscheme("rex")
+    pending = id
+    local ok, err = pcall(vim.cmd.colorscheme, "rex")
+    pending = nil
+    if not ok then
+      error(err, 0)
+    end
   else
     if fallback then
       fallback()
