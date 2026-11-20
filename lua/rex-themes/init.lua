@@ -10,6 +10,7 @@ function M.current_id()
   if not vim.env.REX_SESSION or vim.fn.executable("defaults") == 0 then
     return nil
   end
+  assert(vim.system, "rex-themes needs Neovim 0.10 or newer")
   local key = vim.o.background == "light" and "Workspace.lightThemeID" or "Workspace.darkThemeID"
   local result = vim.system({ "defaults", "read", "com.superlogical.rex", key }, { text = true }):wait(500)
   if result.code ~= 0 then
