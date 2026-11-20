@@ -11,7 +11,7 @@ function M.current_id()
     return nil
   end
   local key = vim.o.background == "light" and "Workspace.lightThemeID" or "Workspace.darkThemeID"
-  local result = vim.system({ "defaults", "read", "com.superlogical.rex", key }, { text = true }):wait()
+  local result = vim.system({ "defaults", "read", "com.superlogical.rex", key }, { text = true }):wait(500)
   if result.code ~= 0 then
     return nil
   end
