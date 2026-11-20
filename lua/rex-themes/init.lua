@@ -73,12 +73,14 @@ function M.setup(opts)
   vim.api.nvim_create_autocmd("OptionSet", {
     group = group,
     pattern = "background",
+    nested = true,
     callback = function()
       refresh(true)
     end,
   })
   vim.api.nvim_create_autocmd("FocusGained", {
     group = group,
+    nested = true,
     callback = function()
       refresh(false)
     end,
